@@ -1,4 +1,4 @@
-# Setup GitHub Runner for Setting up Self-hosted Runner Instance
+# Setup GitHub Runner on a Self-hosted Runner Instance
 
 ## Objective
 This shell script is used to set up a GitHub Actions runner on a Linux machine. A GitHub Actions runner is a server that GitHub uses to run your CI/CD jobs. This script automates the process of downloading, installing, and configuring the runner.
