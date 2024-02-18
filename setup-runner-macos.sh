@@ -14,7 +14,7 @@ mkdir actions-runner && cd actions-runner
 curl -o actions-runner-osx-x64-2.313.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.313.0/actions-runner-osx-x64-2.313.0.tar.gz
 
 # Optional: Validate the hash
-# echo "5697e222e71c4  actions-runner-linux-x64-2.313.0.tar.gz" | shasum -a 256 -c
+# echo "5697e222e71c4  actions-runner-osx-x64-2.313.0.tar.gz" | shasum -a 256 -c
 
 # Create diectory to extract the tar
 mkdir runner-files && cd runner-files
