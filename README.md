@@ -8,7 +8,7 @@ The script takes two arguments: the name of the repository where the runner will
 
 ## Script Steps to Setup Runner
 
-1. First, the script creates a directory named `actions-runner` and navigates into it. It then downloads the latest version of the GitHub Actions runner package for `Linux x64` from GitHub's servers using the curl command.
+1. First, the script creates a directory named `actions-runner` and navigates into it. It then downloads the latest version of the GitHub Actions runner package for `x64` in "Linux" systems or "MacOS" from GitHub's servers using the `curl` command.
 Optionally, you can validate the hash of the downloaded file to ensure its integrity. 
 
 2. Next, the script creates another directory named `runner-files` within the `actions-runner` directory and navigates into it. It then extracts the downloaded runner package using the tar command.
