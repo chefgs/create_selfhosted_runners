@@ -44,4 +44,9 @@ curl -L \
   -H "Authorization: Bearer github_pat_7yePuzn_AJRrF9JPT" \
   -H "X-GitHub-Api-Version: 2022-11-28" \
   https://api.github.com/repos/chefgs/linktoqr/actions/runners/registration-token
+
+Export the runner environment variable RUNNER_ALLOW_RUNASROOT="1"
+This is to avoid the error "must not run as root" when running the runner as root
+export RUNNER_ALLOW_RUNASROOT="1"
+Link [ref](https://serverfault.com/questions/1052695/must-not-run-with-sudo-while-trying-to-create-a-runner-using-github-actions)
 ```
