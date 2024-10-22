@@ -1,5 +1,50 @@
 # GitHub Actions Self-Hosted Runner Setup Guide
 
+## Introduction to GitHub Actions Workflow Basics and Runners
+
+### GitHub Actions Workflow Basics
+
+GitHub Actions is a powerful automation platform that allows you to create custom workflows for your software development lifecycle. Workflows are defined using YAML files and can be triggered by various events such as pushes, pull requests, or scheduled times.
+
+A basic GitHub Actions workflow consists of:
+
+- **Events**: Triggers that start the workflow (e.g., `push`, `pull_request`).
+- **Jobs**: A series of steps that execute on the same runner.
+- **Steps**: Individual tasks within a job, which can run commands or use pre-built actions.
+
+Example workflow file (`.github/workflows/ci.yml`):
+
+```yml
+name: CI
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run build
+        run: make build
+```
+
+### Runners
+
+Runners are the machines that execute the jobs in your workflows. GitHub provides hosted runners with different operating systems, but you can also use self-hosted runners.
+
+- **GitHub-Hosted Runners**: Managed by GitHub, these runners come pre-configured with a wide range of tools and software.
+- **Self-Hosted Runners**: Custom machines that you manage yourself. These can be physical machines, virtual machines, or cloud instances.
+
+### Need for Self-Hosted Runners
+
+While GitHub-hosted runners are convenient, there are scenarios where self-hosted runners are beneficial:
+
+- **Custom Environments**: You need specific software, configurations, or hardware that GitHub-hosted runners do not provide.
+- **Performance**: You require more powerful hardware or specific hardware configurations.
+- **Cost**: You want to reduce costs by using your own infrastructure.
+- **Security**: You need to run workflows in a more controlled and secure environment.
+
+Self-hosted runners give you more control over the environment in which your workflows run, allowing you to tailor the setup to your specific needs.
+
 This guide explains how to set up a GitHub Actions self-hosted runner on a macOS system.
 
 ## Prerequisites

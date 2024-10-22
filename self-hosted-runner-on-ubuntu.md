@@ -1,15 +1,95 @@
 # GitHub Actions Self-Hosted Runner Setup Guide for Ubuntu
 
+## Introduction to GitHub Actions Workflow Basics and Runners
+
+### GitHub Actions Workflow Basics
+
+GitHub Actions is a powerful automation platform that allows you to create custom workflows for your software development lifecycle. Workflows are defined using YAML files and can be triggered by various events such as pushes, pull requests, or scheduled times.
+
+A basic GitHub Actions workflow consists of:
+
+- **Events**: Triggers that start the workflow (e.g., `push`, `pull_request`).
+- **Jobs**: A series of steps that execute on the same runner.
+- **Steps**: Individual tasks within a job, which can run commands or use pre-built actions.
+
+Example workflow file (`.github/workflows/ci.yml`):
+
+```yml
+name: CI
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run build
+        run: make build
+```
+
+### Runners
+
+Runners are the machines that execute the jobs in your workflows. GitHub provides hosted runners with different operating systems, but you can also use self-hosted runners.
+
+- **GitHub-Hosted Runners**: Managed by GitHub, these runners come pre-configured with a wide range of tools and software.
+- **Self-Hosted Runners**: Custom machines that you manage yourself. These can be physical machines, virtual machines, or cloud instances.
+
+### Need for Self-Hosted Runners
+
+While GitHub-hosted runners are convenient, there are scenarios where self-hosted runners are beneficial:
+
+- **Custom Environments**: You need specific software, configurations, or hardware that GitHub-hosted runners do not provide.
+- **Performance**: You require more powerful hardware or specific hardware configurations.
+- **Cost**: You want to reduce costs by using your own infrastructure.
+- **Security**: You need to run workflows in a more controlled and secure environment.
+
+Self-hosted runners give you more control over the environment in which your workflows run, allowing you to tailor the setup to your specific needs.
+
 This guide explains how to set up a GitHub Actions self-hosted runner on an Ubuntu instance.
 
 ## Prerequisites
 
 - A GitHub repository where you want to add the self-hosted runner.
 - A GitHub Personal Access Token (PAT) with `repo` scope.
-- An Ubuntu system (can be an EC2 instance on AWS or any other Ubuntu machine).
+- An Ubuntu system (can be an EC2 instance on AWS or any other Ubuntu machine) - e.g., Ubuntu Server 22.04 LTS or 24.04 LTS
 - Administrative privileges on the Ubuntu system.
 
-## Step-by-Step Guide
+## Steps to Create a Personal Access Token (PAT) from Developer Settings
+
+To create a Personal Access Token (PAT) for GitHub, follow these steps:
+
+### Step 1: Navigate to Developer Settings
+
+1. Log in to your GitHub account.
+2. In the upper-right corner of any page, click your profile photo, then click **Settings**.
+3. In the left sidebar, click **Developer settings**.
+
+### Step 2: Generate a New Token
+
+1. In the left sidebar, click `**Personal access tokens** > Token Classic` .
+2. Click **Generate new token** .
+
+### Step 3: Configure the Token
+
+1. **Note**: If you are prompted to confirm your password, enter your GitHub password.
+2. **Note**: Give your token a descriptive name in the **Note** field.
+3. **Expiration**: Set an expiration date for the token. You can choose from 7 days, 30 days, 60 days, 90 days, or no expiration.
+4. **Select Scopes**: Select the scopes or permissions you'd like to grant this token. For setting up a self-hosted runner, you typically need the `repo` scope.
+
+### Step 4: Generate and Save the Token
+
+1. Click **Generate token**.
+2. **Important**: Copy the token to a secure location. This is the only time you will be able to see it. If you lose it, you will need to generate a new token.
+
+### Example of Required Scopes
+
+For setting up a self-hosted runner, you generally need the following scope:
+
+- **repo**: Full control of private repositories
+
+You now have a Personal Access Token (PAT) that you can use to authenticate with GitHub when setting up your self-hosted runner. Make sure to keep this token secure and do not share it publicly.
+
+## Step-by-Step Guide Create Self Hosted Runner
 
 ### Step 1: Launch an Ubuntu EC2 Instance (if using AWS)
 
@@ -20,6 +100,10 @@ This guide explains how to set up a GitHub Actions self-hosted runner on an Ubun
 5. Select an instance type (e.g., t2.micro for testing).
 6. Configure instance details, add storage, and configure security groups as needed.
 7. Launch the instance and connect to it via SSH.
+
+Or
+
+You can use Terraform IaC code to spin-up an EC2 instance. Refer the [Terraform EC2 Module Guide](https://github.com/terraform-aws-modules/terraform-aws-ec2-instance) for the reference.
 
 ### Step 2: Set Up the Runner on Ubuntu
 
@@ -130,3 +214,7 @@ You have now set up a GitHub Actions self-hosted runner on an Ubuntu system. Upd
 
 ## Reference
 - [GitHub Self-hosted Runner Docs](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners)
+
+---
+
+Description: "Learn how to set up a GitHub Actions self-hosted runner on Ubuntu. Follow our step-by-step guide to configure your own runner, optimize CI/CD workflows, and gain control over your build environment."
